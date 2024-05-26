@@ -4,11 +4,14 @@ FROM python:3.11.9-slim-buster
 # Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
-COPY . /app
+# Copy only the requirements file to avoid caching issues
+COPY requirements.txt .
 
 # Install the dependencies
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
+
+# Copy the current directory contents into the container
+COPY . .
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
