@@ -7,7 +7,7 @@ pipeline {
                 git url: 'https://github.com/youssef981/flask-jenkins-docker-demo.git', branch: 'master'
             }
         }
-
+        
         stage('Build Docker Image') {
             steps {
                 script {
