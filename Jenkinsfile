@@ -22,7 +22,7 @@ pipeline {
                     // Stop and remove any previous container running on the same port
                     sh 'docker rm -f flaskapp || true'
                     // Run the new container
-                    dockerImage.run("-d -p 5000:5000 --name flaskapp")
+                    dockerImage.run("-p 5000:5000 --name flaskapp")
                 }
             }
         }
