@@ -2,10 +2,15 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/youssef981/flask-jenkins-docker-demo.git', branch: 'master'
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Ensure Docker is available in the PATH
                     withEnv(['PATH+EXTRA=/usr/bin/docker']) {
                         dockerImage = docker.build("flaskapp")
                     }
@@ -16,7 +21,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    withEnv(['PATH+EXTRA=/usr/local/bin']) {
+                    withEnv(['PATH+EXTRA=/usr/bin/docker']) {
                         // Stop and remove any previous container running on the same port
                         sh 'docker rm -f flaskapp || true'
                         // Run the new container
